@@ -31,8 +31,17 @@ else:
 if args.s:
   newPassKey = args.s[0]
   newPass = args.s[1]
+
+  # Make sure the key does not already exist
+  for ind in df.index:
+    if newPassKey == df["key"][ind]:
+      print("Key already exists. Every password must have a unique key.")
+      exit()
+
   # Password requirements: At least ten characters, one uppercase, one lowercase, and one number
   validPass = re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{10,}$', newPass)
+
+
   if validPass:
     # Add the new password as a row to the dataframe
     df.loc[len(df)] = [newPassKey, newPass]
@@ -43,10 +52,8 @@ if args.s:
   # Write the updated dataframe to our csv
   df.to_csv('securepass.csv', index=False)
 
-print(df)
 
-
-# if -r:
+# if args.r:
   # Check to see if the password exists
 
   # Find the password with the matching service and print it
