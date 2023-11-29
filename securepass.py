@@ -40,6 +40,9 @@ if args.s:
     print("Your password does not meet the requirements. Passwords must have at least one uppercase letter, one lowercase letter, and one number. They must contain at least ten characters.")
     exit()
 
+  # Write the updated dataframe to our csv
+  df.to_csv('securepass.csv', index=False)
+
 print(df)
 
 
