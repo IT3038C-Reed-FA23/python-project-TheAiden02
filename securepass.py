@@ -29,6 +29,8 @@ else:
 
 
 if args.s:
+  newPassKey = args.s[0]
+  newPass = args.s[1]
   # Password requirements: At least ten characters, one uppercase, one lowercase, and one number
   validPass = re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{10,}$', newPass)
   if validPass:
