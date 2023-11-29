@@ -29,10 +29,6 @@ else:
 
 
 if args.s:
-  # Make sure exactly two arguments were provided
-  if len(args.s) != 2:
-    print("An error ocurred. Make sure that exactly two arguments are provided following the -s flag.")
-    exit()
   # Password requirements: At least ten characters, one uppercase, one lowercase, and one number
   validPass = re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{10,}$', newPass)
   if validPass:
