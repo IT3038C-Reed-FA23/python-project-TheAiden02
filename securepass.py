@@ -7,16 +7,16 @@ import argparse as ap
 import re
 import os.path
 
-def authenticate(): # Bulletproof authentication
-  hacker = input('Are you a hacker? You have to tell the truth (y/n): ')
+# Authenticate
+hacker = input('Are you a hacker? You have to tell the truth (y/n): ')
 
-  if hacker == 'y' or hacker == 'Y':
-    print("Please refrain from hacking this user's passwords. They don't have anything interesting or valuable anyway. Thank you!")
-    exit()
-  elif hacker == 'n' or hacker == 'N':
-    print("Oh, that's good!")
-  else:
-    print("Hmmmm. Not a y or n. Well, lucky for you, we here at securepass (tm) prefer to give our users the benefit of the doubt!")
+if hacker == 'y' or hacker == 'Y':
+  print("Please refrain from hacking this user's passwords. They don't have anything interesting or valuable anyway. Thank you!")
+  exit()
+elif hacker == 'n' or hacker == 'N':
+  print("Oh, that's good!")
+else:
+  print("Hmmmm. Not a y or n. Well, lucky for you, we here at securepass (tm) prefer to give our users the benefit of the doubt!")
 
 # Parse switches and arguments
 parser = ap.ArgumentParser(description='A password manager which can write to and read from a csv file, using unique keys to reference stored passwords.') # Create argument parser
@@ -45,27 +45,28 @@ if args.store: # Store mode: add a new line to df, and write df to securepass.cs
   newPass = args.store[1]
 
   # Make sure the key does not already exist
+  keyExists = False
   for ind in df.index:
     if newPassKey == df["key"][ind]:
-      print("Key already exists. Every password must have a unique key.")
-      exit()
+      keyExists = True
 
   # Password requirements: At least ten characters, one uppercase, one lowercase, and one number
   validPass = re.match(r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{10,}$', newPass)
 
 
-  if validPass:
+  if validPass and not keyExists:
     # Add the new password as a row to the dataframe
     df.loc[len(df)] = [newPassKey, newPass]
     # Write the updated dataframe to our csv
     df.to_csv('securepass.csv', index=False)
+  elif not keyExists:
+    print("Store error: Your password does not meet the requirements. Passwords must have at least one uppercase letter, one lowercase letter, and one number. They must contain at least ten characters.")
   else:
-    print("Your password does not meet the requirements. Passwords must have at least one uppercase letter, one lowercase letter, and one number. They must contain at least ten characters.")
+    print("Store error: Key already exists. Every password must have a unique key.")
 
 
 
 if args.retrieve: # Retrieve mode: find the password with the matching key
-  authenticate()
   passKey = args.retrieve
   found = False
 
@@ -76,11 +77,10 @@ if args.retrieve: # Retrieve mode: find the password with the matching key
       found = True
 
   if found:
-    print("Your password is: " + output)
+    print(f"Password for key {passKey}: {output}")
   else:
-    print("No match was found for the provided key. ")
+    print("Retrieve error: No match was found for the provided key. ")
 
 
-if args.view:
-  authenticate()
+if args.view: # Print the entire csv
   print(df)
