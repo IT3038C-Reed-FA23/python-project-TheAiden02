@@ -10,7 +10,7 @@ import os.path
 # Parse switches and arguments
 parser = ap.ArgumentParser(description='A password manager which can write to and read from a csv file, using unique keys to reference stored passwords.') # Create argument parser
 
-parser.add_argument('-s', '--store', nargs=2, help='Store a new entry in the password manager.', metavar=('KEY', 'PASSWORD'))
+parser.add_argument('-s', '--store', nargs=2, help='Store a new entry in the password manager. Note that passwords must contain at least one uppercase letter, one lowercase letter, and one number, and be at least ten characters long.', metavar=('KEY', 'PASSWORD'))
 parser.add_argument('-r', '--retrieve', help='Retrieve a password from the password manager', metavar='KEY')
 
 args = parser.parse_args()
