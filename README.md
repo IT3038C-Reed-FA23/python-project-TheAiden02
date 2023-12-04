@@ -23,7 +23,7 @@ I think I deserve full points because my project meets all of the requirements a
 ## Self-Reflection
 <!-- What did you learn that you found interesting -->
 
-My two greatest takaways from the lab are increased familiarity with the argsparse and pandas modules. I feel much more comfortable creating switches with different numbers of arguments and providing useful usage information with the -h flag.
+My two greatest takaways from the lab are increased familiarity with the argsparse and pandas modules. I feel much more comfortable using argparse to create switches using the modules different options to do things like specify multiple arguments following a switch and print helpful usage information when the user uses the -h flag. I also got much better at using pandas to read from and write to csv files, and manipulate dataframe objects inside the script. This script can create a dataframe, lookup specific rows using a primary key, and add new rows while maintaining databass integrity. 
 ### How long it took you to finish this?
 
 In total this project took about 5 hours.
