@@ -57,26 +57,28 @@ if args.store: # Store mode: add a new line to df, and write df to securepass.cs
   if validPass:
     # Add the new password as a row to the dataframe
     df.loc[len(df)] = [newPassKey, newPass]
+    # Write the updated dataframe to our csv
+    df.to_csv('securepass.csv', index=False)
   else:
     print("Your password does not meet the requirements. Passwords must have at least one uppercase letter, one lowercase letter, and one number. They must contain at least ten characters.")
-    exit()
 
-  # Write the updated dataframe to our csv
-  df.to_csv('securepass.csv', index=False)
 
 
 if args.retrieve: # Retrieve mode: find the password with the matching key
   authenticate()
   passKey = args.retrieve
+  found = False
 
-  # Find the password with the matching key and print it
+  # Find the password with the matching key
   for i in df.index:
     if df.key[i] == passKey:
-      print("Your password is: " + df.password[i])
-      exit()
+      output = df.password[i]
+      found = True
 
-  # If no password matches the key:
-  print("No match was found for the provided key. ")
+  if found:
+    print("Your password is: " + output)
+  else:
+    print("No match was found for the provided key. ")
 
 
 if args.view:
