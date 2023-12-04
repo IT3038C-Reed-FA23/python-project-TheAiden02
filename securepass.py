@@ -28,9 +28,9 @@ else:
 
 
 
-if args.s: # Store mode: add a new line to df, and write df to securepass.csv
-  newPassKey = args.s[0]
-  newPass = args.s[1]
+if args.store: # Store mode: add a new line to df, and write df to securepass.csv
+  newPassKey = args.store[0]
+  newPass = args.store[1]
 
   # Make sure the key does not already exist
   for ind in df.index:
@@ -53,7 +53,7 @@ if args.s: # Store mode: add a new line to df, and write df to securepass.csv
   df.to_csv('securepass.csv', index=False)
 
 
-if args.r: # Retrieve mode: find the password with the matching key
+if args.retrieve: # Retrieve mode: find the password with the matching key
 
   # Bulletproof authentication
   hacker = input('Are you a hacker? You have to tell the truth (y/n): ')
@@ -66,7 +66,7 @@ if args.r: # Retrieve mode: find the password with the matching key
   else:
     print("Hmmmm. Not a y or n. Well, lucky for you, we here at securepass (tm) prefer to give our users the benefit of the doubt!")
 
-  passKey = args.r
+  passKey = args.retrieve
 
   # Find the password with the matching key and print it
   for i in df.index:
