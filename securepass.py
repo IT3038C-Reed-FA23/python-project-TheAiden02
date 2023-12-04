@@ -1,6 +1,6 @@
 # Python password manager
-# Purpose: Allow user to store passwords and associated service in a csv, and retrieve them.
-# Options: -h: use information, -s: store new password, -r: retrieve password
+# Purpose: Allow user to store passwords and associated key in a csv, and retrieve them.
+# Options: -h: usage information, -s: store new password, -r: retrieve password
 
 import pandas as pd
 import argparse as ap
@@ -28,7 +28,7 @@ else:
 
 
 
-if args.s:
+if args.s: # Store mode: add a new line to df, and write df to securepass.csv
   newPassKey = args.s[0]
   newPass = args.s[1]
 
@@ -53,7 +53,7 @@ if args.s:
   df.to_csv('securepass.csv', index=False)
 
 
-if args.r:
+if args.r: # Retrieve mode: find the password with the matching key
 
   # Bulletproof authentication
   hacker = input('Are you a hacker? You have to tell the truth (y/n): ')
