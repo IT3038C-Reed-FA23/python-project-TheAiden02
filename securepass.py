@@ -53,10 +53,30 @@ if args.s:
   df.to_csv('securepass.csv', index=False)
 
 
-# if args.r:
-  # Check to see if the password exists
+if args.r:
 
-  # Find the password with the matching service and print it
+  # Bulletproof authentication
+  hacker = input('Are you a hacker? You have to tell the truth (y/n): ')
+
+  if hacker == 'y' or hacker == 'Y':
+    print("Please refrain from hacking this user's passwords. They don't have anything interesting or valuable anyway. Thank you!")
+    exit()
+  elif hacker == 'n' or hacker == 'N':
+    print("Oh, that's good!")
+  else:
+    print("Hmmmm. Not a y or n. Well, lucky for you, we here at securepass (tm) prefer to give our users the benefit of the doubt!")
+
+  passKey = args.r
+
+  # Find the password with the matching key and print it
+  for i in df.index:
+    if df.key[i] == passKey:
+      print("Your password is: " + df.password[i])
+      exit()
+
+  # If no password matches the key:
+  print("No match was found for the provided key. ")
+
 
 # if -h:
   # Print usage information
